@@ -16,7 +16,7 @@ namespace GtaChaos.Models.Effects.extra
 
         public override string GetDescription()
         {
-            string randomVehicle = "Random Vehicle";
+            string randomVehicle = "Vehiculo Aleatorio";
             return $"Spawn {((vehicleID == -1) ? randomVehicle : VehicleNames.GetVehicleName(vehicleID))}";
         }
 

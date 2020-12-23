@@ -39,7 +39,7 @@ namespace GtaChaos.Forms
         {
             InitializeComponent();
 
-            Text = $"GTA Trilogy Chaos Mod v{Shared.Version}";
+            Text = $"GTA Trilogy Chaos Mod v{Shared.Version} - Castellano";
             if (!debug)
             {
                 gameToolStripMenuItem.Visible = false;
@@ -311,10 +311,10 @@ namespace GtaChaos.Forms
 
             if (ProcessHooker.HasExited())
             {
-                MessageBox.Show("The game needs to be running!", "Error");
+                MessageBox.Show("El juego tiene que estar abierto!", "Error");
 
                 buttonAutoStart.Enabled = Shared.IsTwitchMode && twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-                buttonAutoStart.Text = "Auto-Start";
+                buttonAutoStart.Text = "Auto-Iniciar";
 
                 if (!Config.Instance().ContinueTimer)
                 {
@@ -332,7 +332,7 @@ namespace GtaChaos.Forms
             ProcessHooker.AttachExitedMethod((sender, e) => buttonAutoStart.Invoke(new Action(() =>
             {
                 buttonAutoStart.Enabled = Shared.IsTwitchMode && twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-                buttonAutoStart.Text = "Auto-Start";
+                buttonAutoStart.Text = "Auto-Iniciar";
 
                 if (!Config.Instance().ContinueTimer)
                 {
@@ -349,7 +349,7 @@ namespace GtaChaos.Forms
             })));
 
             buttonAutoStart.Enabled = false;
-            buttonAutoStart.Text = "Waiting...";
+            buttonAutoStart.Text = "Esperando...";
 
             Shared.TimerEnabled = false;
             autoStartTimer.Start();
@@ -436,11 +436,11 @@ namespace GtaChaos.Forms
                     {
                         long millisecondsOver = stopwatch.ElapsedMilliseconds - Config.Instance().TwitchVotingTime;
                         int waitLeft = Math.Max(0, 15000 - decimal.ToInt32(millisecondsOver));
-                        labelTwitchCurrentMode.Text = $"Current Mode: Waiting For Poll... ({Math.Ceiling((float)waitLeft / 1000)}s left)";
+                        labelTwitchCurrentMode.Text = $"Modo Actual: Esperando Votación... (Quedan {Math.Ceiling((float)waitLeft / 1000)}s)";
 
                         if (waitLeft == 0)
                         {
-                            labelTwitchCurrentMode.Text = "Current Mode: Cooldown (Poll Failed)";
+                            labelTwitchCurrentMode.Text = "Modo Actual: Tiempo De Recarga (Votación Fallida)";
 
                             ProcessHooker.SendEffectToGame("time", "0");
                             Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().TwitchVotingCooldown);
@@ -478,7 +478,7 @@ namespace GtaChaos.Forms
                     stopwatch.Restart();
                     Shared.TwitchVotingMode = 0;
 
-                    labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
+                    labelTwitchCurrentMode.Text = "Modo Actual: Tiempo De Recarga";
 
                     if (twitch != null)
                     {
@@ -541,7 +541,7 @@ namespace GtaChaos.Forms
                     stopwatch.Restart();
                     Shared.TwitchVotingMode = 0;
 
-                    labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
+                    labelTwitchCurrentMode.Text = "Modo Actual: Tiempo De Recarga";
 
                     twitch?.SetVoting(0, timesUntilRapidFire);
                 }
@@ -584,7 +584,7 @@ namespace GtaChaos.Forms
                         timesUntilRapidFire = new Random().Next(10, 15);
 
                         Shared.TwitchVotingMode = 2;
-                        labelTwitchCurrentMode.Text = "Current Mode: Rapid-Fire";
+                        labelTwitchCurrentMode.Text = "Modo actual: Rapid-Fire";
 
                         twitch?.SetVoting(2, timesUntilRapidFire);
                     }
@@ -593,7 +593,7 @@ namespace GtaChaos.Forms
                         progressBarTwitch.Value = progressBarTwitch.Maximum = Config.Instance().TwitchVotingTime;
 
                         Shared.TwitchVotingMode = 1;
-                        labelTwitchCurrentMode.Text = "Current Mode: Voting";
+                        labelTwitchCurrentMode.Text = "Modo actual: Votando";
 
                         twitch?.SetVoting(1, timesUntilRapidFire);
                     }
@@ -649,18 +649,18 @@ namespace GtaChaos.Forms
 
         private void PopulateMainCooldowns()
         {
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 seconds", 1000 * 10));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("20 seconds", 1000 * 20));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("30 seconds", 1000 * 30));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("1 minute", 1000 * 60));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("3 minutes", 1000 * 60 * 3));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 segundos", 1000 * 10));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("20 segundos", 1000 * 20));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("30 segundos", 1000 * 30));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("1 minuto", 1000 * 60));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("2 minutos", 1000 * 60 * 2));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("3 minutos", 1000 * 60 * 3));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("5 minutos", 1000 * 60 * 5));
+            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 minutos", 1000 * 60 * 10));
 
             if (debug)
             {
-                comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
+                comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 segundo", 1000));
                 comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 10ms", 10));
             }
 
@@ -702,8 +702,8 @@ namespace GtaChaos.Forms
 
         private void PopulateVotingTimes()
         {
-            comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("30 seconds", 1000 * 30));
-            comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("1 minute", 1000 * 60));
+            comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("30 segundos", 1000 * 30));
+            comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("1 minuto", 1000 * 60));
 
             comboBoxVotingTime.SelectedIndex = 0;
 
@@ -735,16 +735,16 @@ namespace GtaChaos.Forms
 
         private void PopulateVotingCooldowns()
         {
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("30 seconds", 1000 * 30));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("1 minute", 1000 * 60));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("3 minutes", 1000 * 60 * 3));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
+            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("30 segundos", 1000 * 30));
+            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("1 minuto", 1000 * 60));
+            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("2 minutos", 1000 * 60 * 2));
+            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("3 minutos", 1000 * 60 * 3));
+            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 minutos", 1000 * 60 * 5));
+            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("10 minutos", 1000 * 60 * 10));
 
             if (debug)
             {
-                comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 seconds", 1000 * 5));
+                comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 segundos", 1000 * 5));
             }
 
             comboBoxVotingCooldown.SelectedIndex = 1;
@@ -778,7 +778,7 @@ namespace GtaChaos.Forms
         private void SetAutostart()
         {
             buttonAutoStart.Enabled = Shared.IsTwitchMode && twitch != null && twitch.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-            buttonAutoStart.Text = "Auto-Start";
+            buttonAutoStart.Text = "Auto-Iniciar";
             stopwatch.Reset();
             SetEnabled(true);
 
@@ -801,7 +801,7 @@ namespace GtaChaos.Forms
             }
             autoStartTimer.Stop();
             buttonMainToggle.Enabled = true;
-            (Shared.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Shared.TimerEnabled ? "Stop / Pause" : "Start / Resume";
+            (Shared.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Shared.TimerEnabled ? "Parar / Pausar" : "Iniciar";
             comboBoxMainCooldown.Enabled =
                 buttonSwitchMode.Enabled =
                 buttonResetMain.Enabled =
@@ -991,7 +991,7 @@ namespace GtaChaos.Forms
 
                 checkBoxTwitchUsePolls.Enabled = true;
 
-                buttonConnectTwitch.Text = "Connect to Twitch";
+                buttonConnectTwitch.Text = "Conectar A Twitch";
 
                 if (!tabs.TabPages.Contains(tabEffects))
                 {
@@ -1035,7 +1035,7 @@ namespace GtaChaos.Forms
 
                 twitch.GetTwitchClient().OnIncorrectLogin += (_sender, _e) =>
                 {
-                    MessageBox.Show("There was an error trying to log in to the account. Wrong username / OAuth token?", "Twitch Login Error");
+                    MessageBox.Show("Ha habido un error intentando conectar con la cuenta. Usuario / token OAuth erróneo?", "Twitch Login Error");
                     Invoke(new Action(() =>
                     {
                         buttonConnectTwitch.Enabled = true;
@@ -1052,7 +1052,7 @@ namespace GtaChaos.Forms
 
                         buttonAutoStart.Enabled = true;
 
-                        buttonConnectTwitch.Text = "Disconnect";
+                        buttonConnectTwitch.Text = "Desconectar";
 
                         textBoxTwitchChannel.Enabled = false;
                         textBoxTwitchUsername.Enabled = false;
@@ -1117,7 +1117,7 @@ namespace GtaChaos.Forms
             }
             else
             {
-                buttonSwitchMode.Text = "Main";
+                buttonSwitchMode.Text = "No Twitch";
                 buttonAutoStart.Enabled = twitch != null && twitch.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
 
                 if (!tabs.TabPages.Contains(tabTwitch))
@@ -1167,9 +1167,9 @@ namespace GtaChaos.Forms
             elapsedCount = 0;
             progressBarMain.Value = 0;
             buttonMainToggle.Enabled = true;
-            buttonMainToggle.Text = "Start / Resume";
+            buttonMainToggle.Text = "Iniciar";
             buttonAutoStart.Enabled = true;
-            buttonAutoStart.Text = "Auto-Start";
+            buttonAutoStart.Text = "Auto-Iniciar";
         }
 
         private void CheckBoxContinueTimer_CheckedChanged(object sender, EventArgs e)
@@ -1202,14 +1202,14 @@ namespace GtaChaos.Forms
             RandomHandler.SetSeed(Config.Instance().Seed);
             stopwatch.Reset();
             elapsedCount = 0;
-            labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
+            labelTwitchCurrentMode.Text = "Modo Actual: Tiempo De Recarga";
             Shared.TwitchVotingMode = 0;
             timesUntilRapidFire = new Random().Next(10, 15);
             progressBarTwitch.Value = 0;
             buttonTwitchToggle.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-            buttonTwitchToggle.Text = "Start / Resume";
+            buttonTwitchToggle.Text = "Iniciar";
             buttonAutoStart.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-            buttonAutoStart.Text = "Auto-Start";
+            buttonAutoStart.Text = "Auto-Iniciar";
         }
 
         private void CheckBoxTwitch3TimesCooldown_CheckedChanged(object sender, EventArgs e)
@@ -1403,7 +1403,7 @@ namespace GtaChaos.Forms
                         = buttonMultiplayerConnect.Enabled
                         = true;
 
-                    buttonMultiplayerConnect.Text = "Connect";
+                    buttonMultiplayerConnect.Text = "Conectar";
 
                     buttonSwitchMode.Enabled = true;
                     buttonMainToggle.Enabled = true;
@@ -1421,7 +1421,7 @@ namespace GtaChaos.Forms
                         = buttonMultiplayerConnect.Enabled
                         = false;
 
-                    buttonMultiplayerConnect.Text = "Connecting...";
+                    buttonMultiplayerConnect.Text = "Conectando...";
                 }
                 else if (state == 2) // Connected
                 {
@@ -1431,7 +1431,7 @@ namespace GtaChaos.Forms
                         = false;
 
                     buttonMultiplayerConnect.Enabled = true;
-                    buttonMultiplayerConnect.Text = "Disconnect";
+                    buttonMultiplayerConnect.Text = "Desconectar";
                 }
             }));
         }
@@ -1465,7 +1465,7 @@ namespace GtaChaos.Forms
         {
             Shared.Multiplayer?.Disconnect();
 
-            if (buttonMultiplayerConnect.Text == "Disconnect")
+            if (buttonMultiplayerConnect.Text == "Desconectar")
             {
                 UpdateMultiplayerConnectionState(0);
                 return;
@@ -1483,20 +1483,20 @@ namespace GtaChaos.Forms
 
             Shared.Multiplayer.OnConnectionFailed += (_sender, args) =>
             {
-                ShowMessageBox("Connection failed - is the server running?", "Error");
+                ShowMessageBox("Conexion fallida - el servidor está encendido?", "Error");
                 UpdateMultiplayerConnectionState(0);
             };
 
             Shared.Multiplayer.OnUsernameInUse += (_sender, args) =>
             {
-                ShowMessageBox("Username already in use!", "Error");
+                ShowMessageBox("Nombre de usuario ya en uso!", "Error");
                 UpdateMultiplayerConnectionState(0);
             };
 
             Shared.Multiplayer.OnConnectionSuccessful += (_sender, args) =>
             {
-                ShowMessageBox("Successfully connected!", "Connected");
-                AddToMultiplayerChatHistory($"Successfully connected to channel: {textBoxMultiplayerChannel.Text}");
+                ShowMessageBox("Conectado correctamente!", "Conectado");
+                AddToMultiplayerChatHistory($"Conectado correctamente al canal: {textBoxMultiplayerChannel.Text}");
                 UpdateMultiplayerConnectionState(2);
 
                 Invoke(new Action(() =>
@@ -1518,33 +1518,33 @@ namespace GtaChaos.Forms
                     labelMultiplayerHost.Text = $"Host: {args.HostUsername}";
                     if (args.IsHost)
                     {
-                        labelMultiplayerHost.Text += " (You!)";
+                        labelMultiplayerHost.Text += " (Tú!)";
                     }
                 }));
             };
 
             Shared.Multiplayer.OnHostLeftChannel += (_sender, args) =>
             {
-                ShowMessageBox("Host has left the channel; Disconnected.", "Host Left");
-                AddToMultiplayerChatHistory("Host has left the channel; Disconnected.");
+                ShowMessageBox("El Host se ha ido; Desconectado.", "Host Desconectado");
+                AddToMultiplayerChatHistory("El Host ha dejado el canal; Desconectado.");
                 UpdateMultiplayerConnectionState(0);
             };
 
             Shared.Multiplayer.OnVersionMismatch += (_sender, args) =>
             {
-                ShowMessageBox($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.", "Version Mismatch");
-                AddToMultiplayerChatHistory($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.");
+                ShowMessageBox($"El canal usa la versión v{args.Version} pero usas la v{Shared.Version}; Desconectado.", "Version Mismatch");
+                AddToMultiplayerChatHistory($"El canal usa la versión v{args.Version} pero usas la v{Shared.Version}; Desconectado.");
                 UpdateMultiplayerConnectionState(0);
             };
 
             Shared.Multiplayer.OnUserJoined += (_sender, args) =>
             {
-                AddToMultiplayerChatHistory($"{args.Username} joined!");
+                AddToMultiplayerChatHistory($"{args.Username} se ha unido!");
             };
 
             Shared.Multiplayer.OnUserLeft += (_sender, args) =>
             {
-                AddToMultiplayerChatHistory($"{args.Username} left!");
+                AddToMultiplayerChatHistory($"{args.Username} se ha ido!");
             };
 
             Shared.Multiplayer.OnChatMessage += (_sender, args) =>
@@ -1584,7 +1584,7 @@ namespace GtaChaos.Forms
                 string[] effects = args.Effects;
                 int[] votes = args.Votes;
 
-                string voteString = $"votes:{effects[0]};{votes[0]};;{effects[1]};{votes[1]};;{effects[2]};{votes[2]};;{args.LastChoice}";
+                string voteString = $"votos:{effects[0]};{votes[0]};;{effects[1]};{votes[1]};;{effects[2]};{votes[2]};;{args.LastChoice}";
                 ProcessHooker.SendPipeMessage(voteString);
             };
 
@@ -1662,6 +1662,41 @@ namespace GtaChaos.Forms
         private void checkBoxRunEffectWhenZeroVotes_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().TwitchRunEffectsWhenZeroVotes = checkBoxRunEffectsWhenZeroVotes.Checked;
+        }
+
+        private void gameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelTwitchCurrentMode_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelMultiplayerServer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelMultiplayerChannel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

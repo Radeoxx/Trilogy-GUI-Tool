@@ -40,16 +40,16 @@ namespace GtaChaos.Models.Utils
             Effects.Clear();
         }
 
-        public static readonly Category WeaponsAndHealth = new Category("Weapons & Health", "HE");
-        public static readonly Category WantedLevel = new Category("Wanted Level", "WA");
-        public static readonly Category Weather = new Category("Weather", "WE");
+        public static readonly Category WeaponsAndHealth = new Category("Armas Y Salud", "HE");
+        public static readonly Category WantedLevel = new Category("\"Se busca\" (Policía)", "WA");
+        public static readonly Category Weather = new Category("Clima", "WE");
         public static readonly Category Spawning = new Category("Spawning", "SP");
-        public static readonly Category Time = new Category("Time", "TI");
-        public static readonly Category VehiclesTraffic = new Category("Vehicles & Traffic", "VE");
-        public static readonly Category PedsAndCo = new Category("Peds & Co.", "PE");
-        public static readonly Category PlayerModifications = new Category("Player Modifications", "MO");
-        public static readonly Category Stats = new Category("Stats", "ST");
-        public static readonly Category CustomEffects = new Category("Custom Effects", "CE");
-        public static readonly Category Teleportation = new Category("Teleportation", "TP");
+        public static readonly Category Time = new Category("Tiempo", "TI");
+        public static readonly Category VehiclesTraffic = new Category("Vehículos Y Tráfico", "VE");
+        public static readonly Category PedsAndCo = new Category("Personas (NPCs)", "PE");
+        public static readonly Category PlayerModifications = new Category("Modificaciones Al Jugador", "MO");
+        public static readonly Category Stats = new Category("Estadísticas", "ST");
+        public static readonly Category CustomEffects = new Category("Efectos Personalizados", "CE");
+        public static readonly Category Teleportation = new Category("Teletransporte", "TP");
     }
 }
